@@ -1,0 +1,25 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-student-list',
+  templateUrl: './student-list.component.html',
+  styleUrls: ['./student-list.component.css']
+})
+export class StudentListComponent {
+  students = [
+    { name: 'Alice', percentage: 92 },
+    { name: 'Bob', percentage: 78 },
+    { name: 'Charlie', percentage: 85 },
+    { name: 'David', percentage: 88 }
+  ];
+
+  highScorers = this.students
+    .filter(student => student.percentage >= 85)
+    .map(student => student.name);
+}
+
+
+<h2>Students Who Scored 85% or Higher</h2>
+<ul>
+  <li *ngFor="let student of highScorers">{{ student }}</li>
+</ul>

@@ -1,0 +1,21 @@
+// Array of companies
+const companies = [
+    { id: 1, name: 'Company A', workforce: 25 },
+    { id: 2, name: 'Company B', workforce: 35 },
+    { id: 3, name: 'Company C', workforce: 40 },
+    { id: 4, name: 'Company D', workforce: 20 }
+];
+
+// Function to find company by id with workforce greater than 30
+function findCompanyByIdAndWorkforceGreaterThan30(id) {
+    return companies.find(company => company.id === id && company.workforce > 30);
+}
+
+// Example: Find company with id = 2 and workforce greater than 30
+const company = findCompanyByIdAndWorkforceGreaterThan30(2);
+
+if (company) {
+    console.log('Found company:', company);
+} else {
+    console.log('No company found with the given criteria.');
+}

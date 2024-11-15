@@ -1,0 +1,54 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-student-list',
+  templateUrl: './student-list.component.html',
+  styleUrls: ['./student-list.component.css']
+})
+export class StudentListComponent implements OnInit {
+
+  students = [
+    { name: 'John Doe', percentage: 90 },
+    { name: 'Jane Smith', percentage: 82 },
+    { name: 'Alice Johnson', percentage: 88 },
+    { name: 'Bob Brown', percentage: 75 },
+    { name: 'Charlie Davis', percentage: 92 }
+  ];
+
+  filteredStudents: string[] = [];
+
+  ngOnInit(): void {
+    this.getTopStudents();
+  }
+
+  getTopStudents() {
+    this.filteredStudents = this.students
+      .filter(student => student.percentage >= 85) // Filter students with percentage >= 85
+      .map(student => student.name);  // Map the result to only return student names
+  }
+}
+
+
+<h2>Students who scored 85% or higher</h2>
+<ul>
+  <li *ngFor="let student of filteredStudents">{{ student }}</li>
+</ul>
+
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { StudentListComponent } from './student-list/student-list.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    StudentListComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

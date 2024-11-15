@@ -1,0 +1,26 @@
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+let employees = [
+  { id: "1", name: "John Doe", position: "Developer", salary: 30000 },
+  { id: "2", name: "Jane Smith", position: "Manager", salary: 50000 },
+  { id: "3", name: "Alice Johnson", position: "Designer", salary: 20000 }
+];
+
+app.get('/employee/high-salary/:id', (req, res) => {
+  const { id } = req.params;
+  const employee = employees.find(emp => emp.id === id && emp.salary > 25000);
+
+  if (!employee) {
+    return res.status(404).json({ message: "Employee not found or salary is not greater than 25000!" });
+  }
+
+  res.status(200).json(employee);
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});

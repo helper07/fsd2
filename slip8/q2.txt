@@ -1,0 +1,65 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Middleware to parse incoming JSON requests
+app.use(express.json());
+
+// Dummy in-memory database (array of employees)
+let employees = [];
+
+// Route to create a new employee (POST method)
+app.post('/employees', (req, res) => {
+    const { name, position, salary } = req.body;
+
+    // Check if all required fields are present
+    if (!name || !position || !salary) {
+        return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    // Create a new employee object
+    const newEmployee = {
+        id: employees.length + 1, // Simple ID generation
+        name,
+        position,
+        salary
+    };
+
+    // Add the new employee to the in-memory database
+    employees.push(newEmployee);
+
+    // Respond with the newly created employee
+    res.status(201).json(newEmployee);
+});
+
+// Route to update an existing employee (PUT method)
+app.put('/employees/:id', (req, res) => {
+    const { id } = req.params;
+    const { name, position, salary } = req.body;
+
+    // Find the employee by ID
+    const employeeIndex = employees.findIndex(emp => emp.id === parseInt(id));
+
+    if (employeeIndex === -1) {
+        return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    // Update the employee's details
+    const updatedEmployee = {
+        id: parseInt(id),
+        name: name || employees[employeeIndex].name,  // Keep old value if not updated
+        position: position || employees[employeeIndex].position,
+        salary: salary || employees[employeeIndex].salary
+    };
+
+    // Update the employee in the database
+    employees[employeeIndex] = updatedEmployee;
+
+    // Respond with the updated employee
+    res.status(200).json(updatedEmployee);
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});

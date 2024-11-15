@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="employeeApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Details</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="EmployeeController">
+  <h1>Employee Details</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Employee Name</th>
+        <th>Employee ID</th>
+        <th>Pin Code</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="employee in employees">
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.pin }}</td>
+        <td>{{ employee.address }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+angular 
+
+const app = angular.module('employeeApp', []);
+
+app.controller('EmployeeController', function ($scope) {
+  $scope.employees = [
+    { name: 'John Doe', id: 'E101', pin: '123456', address: '123 Main St, Springfield' },
+    { name: 'Jane Smith', id: 'E102', pin: '654321', address: '456 Elm St, Shelbyville' },
+    { name: 'Alice Brown', id: 'E103', pin: '789012', address: '789 Oak St, Capital City' },
+    { name: 'Bob White', id: 'E104', pin: '345678', address: '101 Pine St, Ogdenville' }
+  ];
+});

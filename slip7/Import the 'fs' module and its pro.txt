@@ -1,0 +1,23 @@
+// Import the 'fs' module and its promises API
+const fs = require('fs').promises;
+
+// Function to read multiple files asynchronously
+async function readFiles() {
+    try {
+        // Read file contents asynchronously using await
+        const file1Content = await fs.readFile('file1.txt', 'utf8');
+        const file2Content = await fs.readFile('file2.txt', 'utf8');
+        const file3Content = await fs.readFile('file3.txt', 'utf8');
+
+        // Log the content of each file
+        console.log('Content of file1.txt:', file1Content);
+        console.log('Content of file2.txt:', file2Content);
+        console.log('Content of file3.txt:', file3Content);
+    } catch (error) {
+        // Handle any errors that occur while reading files
+        console.error('Error reading files:', error);
+    }
+}
+
+// Call the function to read files
+readFiles();

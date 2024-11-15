@@ -1,0 +1,39 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+app.use(bodyParser.json());
+
+const movies = [];
+
+app.post('/movies', (req, res) => {
+  const { title, director, releaseYear, genre } = req.body;
+
+  if (!title || !director || !releaseYear || !genre) {
+    return res.status(400).json({
+      error: 'All fields (title, director, releaseYear, genre) are required.',
+    });
+  }
+
+  const newMovie = {
+    id: movies.length + 1,
+    title,
+    director,
+    releaseYear,
+    genre,
+  };
+
+  movies.push(newMovie);
+
+  res.status(201).json(newMovie);
+});
+
+app.get('/', (req, res) => {
+  res.send('Movie API is running!');
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});

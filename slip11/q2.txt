@@ -1,0 +1,25 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-student-list',
+  templateUrl: './student-list.component.html',
+  styleUrls: ['./student-list.component.css']
+})
+export class StudentListComponent {
+  students = [
+    { name: 'Alice', sports: ['basketball', 'soccer'] },
+    { name: 'Bob', sports: ['tennis'] },
+    { name: 'Charlie', sports: ['basketball'] },
+    { name: 'David', sports: ['cricket', 'soccer'] }
+  ];
+
+  basketballPlayers = this.students
+    .filter(student => student.sports.includes('basketball'))
+    .map(student => student.name);
+}
+
+
+<h2>Students Who Play Basketball</h2>
+<ul>
+  <li *ngFor="let player of basketballPlayers">{{ player }}</li>
+</ul>

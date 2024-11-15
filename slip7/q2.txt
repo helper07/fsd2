@@ -1,0 +1,44 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Middleware to parse incoming JSON requests
+app.use(express.json());
+
+// Dummy in-memory database (an array of users)
+let users = [];
+
+// Route to create a new user (POST method)
+app.post('/users', (req, res) => {
+    const { name, age, email } = req.body;
+
+    // Check if all required fields are present
+    if (!name || !age || !email) {
+        return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    // Create a new user object
+    const newUser = {
+        id: users.length + 1, // Assigning a simple ID
+        name,
+        age,
+        email
+    };
+
+    // Add the new user to the in-memory users array
+    users.push(newUser);
+
+    // Respond with the newly created user
+    res.status(201).json(newUser);
+});
+
+// Route to get all users (GET method)
+app.get('/users', (req, res) => {
+    // Respond with the list of all users
+    res.status(200).json(users);
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});

@@ -1,0 +1,61 @@
+const express = require('express');
+const bodyParser = require('body-parser'); // Import body-parser
+const app = express();
+const port = 3000;
+
+// Middleware to parse JSON request bodies
+app.use(bodyParser.json()); // For parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+
+// Dummy in-memory database (array of employees)
+let employees = [];
+
+// Middleware to validate employee data
+function validateEmployeeData(req, res, next) {
+    const { name, position, salary } = req.body;
+
+    // Check if all required fields are present
+    if (!name || !position || !salary) {
+        return res.status(400).json({ error: 'Missing required fields (name, position, salary)' });
+    }
+
+    // Check if salary is a valid number
+    if (isNaN(salary) || salary <= 0) {
+        return res.status(400).json({ error: 'Salary must be a positive number' });
+    }
+
+    // If validation passes, proceed to the next middleware/route handler
+    next();
+}
+
+// Route to create a new employee (POST request)
+app.post('/employees', validateEmployeeData, (req, res) => {
+    const { name, position, salary } = req.body;
+
+    // Create a new employee object
+    const newEmployee = {
+        id: employees.length + 1, // Simple ID generation
+        name,
+        position,
+        salary
+    };
+
+    // Add the new employee to the in-memory database
+    employees.push(newEmployee);
+
+    // Respond with the newly created employee
+    res.status(201).json({
+        message: 'Employee created successfully',
+        employee: newEmployee
+    });
+});
+
+// Route to get all employees (GET request)
+app.get('/employees', (req, res) => {
+    res.status(200).json(employees);
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});

@@ -1,0 +1,21 @@
+const fs = require('fs').promises;
+const path = require('path');
+
+async function readFiles() {
+    try {
+        const files = ['data/file1.txt', 'data/file2.txt', 'data/file3.txt'];
+
+        const readPromises = files.map(file => fs.readFile(path.resolve(__dirname, file), 'utf-8'));
+        const fileContents = await Promise.all(readPromises);
+
+        fileContents.forEach((content, index) => {
+            console.log(`Content of file${index + 1}.txt:`);
+            console.log(content);
+            console.log('-------------------');
+        });
+    } catch (error) {
+        console.error('Error reading files:', error);
+    }
+}
+
+readFiles();

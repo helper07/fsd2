@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="bankApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Details</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body ng-controller="BankController">
+
+    <h1>Bank Details</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Bank Name</th>
+                <th>MICR Code</th>
+                <th>IFSC Code</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="bank in banks">
+                <td>{{ bank.name }}</td>
+                <td>{{ bank.micr }}</td>
+                <td>{{ bank.ifsc }}</td>
+                <td>{{ bank.address }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        angular.module('bankApp', [])
+            .controller('BankController', function($scope) {
+                $scope.banks = [
+                    {
+                        name: 'State Bank of India',
+                        micr: '123456789',
+                        ifsc: 'SBIN0001234',
+                        address: 'Mumbai, Maharashtra, India'
+                    },
+                    {
+                        name: 'ICICI Bank',
+                        micr: '987654321',
+                        ifsc: 'ICIC0005678',
+                        address: 'Bengaluru, Karnataka, India'
+                    },
+                    {
+                        name: 'HDFC Bank',
+                        micr: '456789123',
+                        ifsc: 'HDFC0001234',
+                        address: 'Chennai, Tamil Nadu, India'
+                    }
+                ];
+            });
+    </script>
+
+</body>
+</html>

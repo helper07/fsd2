@@ -1,0 +1,10 @@
+const companies = [
+    { id: 1, name: 'Company A', workforce: 20 },
+    { id: 2, name: 'Company B', workforce: 40 },
+    { id: 3, name: 'Company C', workforce: 10 },
+    { id: 4, name: 'Company D', workforce: 50 }
+];
+
+const companyWithLargeWorkforce = companies.find(company => company.workforce > 30);
+
+console.log(companyWithLargeWorkforce);

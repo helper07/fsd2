@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="additionApp">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Addition Calculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="AdditionController" ng-init="num1=0; num2=0; showResult=false">
+
+    <h1>Simple Addition Calculator</h1>
+
+    <div>
+        <label>Number 1:</label>
+        <input type="number" ng-model="num1">
+    </div>
+
+    <div>
+        <label>Number 2:</label>
+        <input type="number" ng-model="num2">
+    </div>
+
+    <button ng-click="calculate()" ng-disabled="!num1 || !num2">Add Numbers</button>
+
+    <p ng-show="showResult">Result: <span ng-bind="result"></span></p>
+
+    <script>
+        angular.module('additionApp', [])
+            .controller('AdditionController', function($scope) {
+                $scope.calculate = function() {
+                    $scope.result = $scope.num1 + $scope.num2;
+                    $scope.showResult = true;
+                };
+            });
+    </script>
+</body>
+</html>
